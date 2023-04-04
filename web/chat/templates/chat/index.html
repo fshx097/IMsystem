@@ -9,9 +9,18 @@
     What chat room would you like to enter?<br>
     <input id="room-name-input" type="text" size="100"><br>
     <input id="room-name-submit" type="button" value="Enter">
-
+    {{ user_name|json_script:"user-name" }}
     <script>
-        document.querySelector('#room-name-input').focus();
+        const userName = JSON.parse(document.getElementById('user-name').textContent);
+        console.log(userName)
+        // const chatSocket = new WebSocket(
+        //     'ws://'
+        //     + window.location.host
+        //     + '/ws/chat/'
+        //     + roomName
+        //     + '/'
+        // );
+
         document.querySelector('#room-name-input').onkeyup = function(e) {
             if (e.keyCode === 13) {  // enter, return
                 document.querySelector('#room-name-submit').click();
@@ -20,8 +29,10 @@
 
         document.querySelector('#room-name-submit').onclick = function(e) {
             var roomName = document.querySelector('#room-name-input').value;
-            window.location.pathname = '/chat/' + roomName + '/';
+            window.location.pathname = '/chat/room' + roomName + '/';
         };
+
+
     </script>
 </body>
 </html>
